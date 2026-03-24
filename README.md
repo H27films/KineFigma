@@ -1,11 +1,30 @@
+# Kiné Fitness
 
-  # Kine
+A sleek, dark-themed fitness tracking app built with React + TypeScript + Tailwind CSS.
 
-  This is a code bundle for Kine. The original project is available at https://www.figma.com/design/cr0tE5KaU27lc2d8S9V0RJ/Kine.
+## Features
 
-  ## Running the code
+- **Dashboard** — Hero KM metric, bento cards, route map, pace/power stats
+- **Log Weights** — Muscle group selector, bench press entry with rep counter
+- **Log Cardio** — Distance/duration inputs, heart rate telemetry chart
+- **Log Calories** — Calorie input, food rating, weekly/monthly trend charts, body measurements
+- **Analytics** — Volume metric, load trends chart, recovery window with circular progress
+- **Profile** — Avatar, stats grid, settings list
 
-  Run `npm i` to install the dependencies.
+## Getting Started
 
-  Run `npm run dev` to start the development server.
-  
+```bash
+npm install
+npm run dev
+```
+
+## Deployment
+
+### Netlify
+The included `netlify.toml` handles build config automatically. Just connect this repo to Netlify.
+
+### Other platforms
+```bash
+npm run build
+```
+Serve the `dist/` folder.

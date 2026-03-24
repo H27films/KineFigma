@@ -1,225 +1,161 @@
-import { useNavigate } from "react-router";
-import svgPaths from "../../imports/svg-5pzbfb2wap";
+import React, { useState } from 'react';
+import { Page } from '../../types';
 
-function BottomNavBar() {
-  const navigate = useNavigate();
-
-  return (
-    <div className="absolute backdrop-blur-[12px] bg-[rgba(0,0,0,0.6)] bottom-[24px] h-[66px] left-[19.5px] rounded-[12px] w-[351px]">
-      <div aria-hidden="true" className="absolute border border-[rgba(255,255,255,0.2)] border-solid inset-0 pointer-events-none rounded-[12px] shadow-[0px_12px_32px_0px_black]" />
-      
-      <div onClick={() => navigate('/')} className="cursor-pointer -translate-y-1/2 absolute flex items-center justify-center left-[38.61px] size-[48px] top-1/2">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M3 13H18V11H3V13ZM3 6V8H18V6H3ZM3 18H12V16H3V18Z" fill="rgba(255,255,255,0.6)" />
-        </svg>
-      </div>
-      
-      <div onClick={() => navigate('/cardio')} className="cursor-pointer -translate-y-1/2 absolute flex items-center justify-center left-[113.86px] size-[48px] top-1/2">
-        <div className="font-['Material_Symbols_Outlined:Thin',sans-serif] text-[24px] text-[rgba(255,255,255,0.6)]">
-          add
-        </div>
-      </div>
-
-      <div className="-translate-y-1/2 absolute flex items-center justify-center left-[186.71px] size-[46.2px] top-1/2">
-        <div className="flex-none scale-x-[110%] scale-y-[110%]">
-          <div className="bg-white rounded-[12px] size-[42px] flex items-center justify-center">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M14.17 9H11V5.83C11 5.3 10.7 5 10 5C9.3 5 9 5.3 9 5.83V9H5.83C5.3 9 5 9.3 5 10C5 10.7 5.3 11 5.83 11H9V14.17C9 14.7 9.3 15 10 15C10.7 15 11 14.7 11 14.17V11H14.17C14.7 11 15 10.7 15 10C15 9.3 14.7 9 14.17 9Z" fill="black"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-      
-      <div onClick={() => navigate('/profile')} className="cursor-pointer -translate-y-1/2 absolute flex items-center justify-center left-[264.36px] size-[48px] top-1/2">
-        <div className="font-['Material_Symbols_Outlined:Thin',sans-serif] text-[24px] text-[rgba(255,255,255,0.6)]">
-          person
-        </div>
-      </div>
-    </div>
-  );
+interface LogCaloriesProps {
+  onNavigate: (page: Page) => void;
 }
 
-function Header() {
-  const navigate = useNavigate();
+const tabs: { label: string; page: Page }[] = [
+  { label: 'Weights', page: 'weights' },
+  { label: 'Cardio', page: 'cardio' },
+  { label: 'Calories', page: 'calories' },
+];
+
+const weeklyBars = [60, 45, 80, 95, 70, 55, 75];
+const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const monthlyBars = [30, 40, 35, 60, 55, 45, 70, 65, 50, 40, 80, 75, 60, 50, 45];
+
+type FoodRating = 'bad' | 'ok' | 'good';
+
+export const LogCalories: React.FC<LogCaloriesProps> = ({ onNavigate }) => {
+  const [calories, setCalories] = useState('1420');
+  const [foodRating, setFoodRating] = useState<FoodRating>('ok');
+  const [bodyWeight, setBodyWeight] = useState('78.5');
+  const [bodyFat, setBodyFat] = useState('14.2');
+  const [muscleMass, setMuscleMass] = useState('64.1');
+
+  const ratingButtons: { label: string; value: FoodRating }[] = [
+    { label: 'Bad', value: 'bad' },
+    { label: 'Ok', value: 'ok' },
+    { label: 'Good', value: 'good' },
+  ];
 
   return (
-    <div className="absolute backdrop-blur-[12px] bg-[rgba(0,0,0,0.6)] content-stretch flex h-[64px] items-center justify-between left-0 pl-[24px] pr-[24.02px] top-0 w-[390px]">
-      <button onClick={() => navigate('/')} className="content-stretch flex items-center relative shrink-0 w-[48px]">
-        <div className="h-[12px] relative shrink-0 w-[18px]">
-          <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18 12">
-            <g>
-              <path d={svgPaths.p2bce57c0} fill="white" />
-            </g>
-          </svg>
-        </div>
-      </button>
-      <div className="content-stretch flex flex-col items-start relative shrink-0">
-        <div className="flex flex-col font-['Inter:Black',sans-serif] font-black h-[28px] justify-center leading-[0] not-italic relative shrink-0 text-[18px] text-white tracking-[-0.9px] uppercase w-[34.52px]">
-          <p className="leading-[28px]">LOG</p>
-        </div>
-      </div>
-      <div className="content-stretch flex flex-col items-end relative shrink-0 w-[48px]">
-        <div className="flex flex-col font-['Inter:Black',sans-serif] font-black h-[20px] justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-right text-white tracking-[1.4px] uppercase w-[39.67px]">
-          <p className="leading-[20px]">Kiné</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default function LogCalories() {
-  const navigate = useNavigate();
-
-  return (
-    <div className="bg-black content-stretch flex flex-col items-start pb-[128px] relative size-full min-h-screen">
+    <div>
       {/* Tab Navigation */}
-      <div className="absolute content-stretch flex gap-[32px] items-end left-[16px] right-[16px] top-[96px]">
-        <div onClick={() => navigate('/weights')} className="cursor-pointer content-stretch flex flex-col items-start relative shrink-0">
-          <div className="flex flex-col font-['Inter:Regular',sans-serif] font-normal h-[15px] justify-center leading-[0] not-italic relative shrink-0 text-[#e2e2e2] text-[10px] tracking-[1px] uppercase w-[53.33px]">
-            <p className="leading-[15px]">Weights</p>
-          </div>
-        </div>
-        <div onClick={() => navigate('/cardio')} className="cursor-pointer content-stretch flex flex-col items-start relative shrink-0">
-          <div className="flex flex-col font-['Inter:Regular',sans-serif] font-normal h-[15px] justify-center leading-[0] not-italic relative shrink-0 text-[#e2e2e2] text-[10px] tracking-[1px] uppercase w-[44.89px]">
-            <p className="leading-[15px]">Cardio</p>
-          </div>
-        </div>
-        <div className="content-stretch flex flex-col items-center relative shrink-0">
-          <div className="content-stretch flex flex-col items-start relative shrink-0">
-            <div className="flex flex-col font-['Inter:Bold',sans-serif] font-bold h-[15px] justify-center leading-[0] not-italic relative shrink-0 text-[10px] text-white tracking-[1px] uppercase w-[56.58px]">
-              <p className="leading-[15px]">Calories</p>
-            </div>
-          </div>
-          <div className="content-stretch flex flex-col h-[8px] items-start pt-[4px] relative shrink-0 w-[4px]">
-            <div className="bg-white rounded-[12px] shrink-0 size-[4px]" />
-          </div>
-        </div>
-      </div>
+      <nav className="flex items-end justify-start gap-8 mb-12 overflow-x-auto hide-scrollbar" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        {tabs.map((tab) => (
+          <button
+            key={tab.page}
+            onClick={() => onNavigate(tab.page)}
+            className="pb-4 text-[10px] uppercase tracking-[0.2em] transition-colors"
+            style={{
+              color: tab.page === 'calories' ? '#ffffff' : 'rgba(161,161,170,1)',
+              fontWeight: 700,
+              borderBottom: tab.page === 'calories' ? '2px solid #ffffff' : '2px solid transparent',
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </nav>
 
-      {/* Main Content */}
-      <div className="w-full pt-[167px] px-[16px] space-y-[32px]">
-        {/* Total Calories */}
+      {/* Total Calories Input */}
+      <section className="mb-16 space-y-12">
         <div>
-          <div className="font-['Inter:Bold',sans-serif] font-bold text-[12px] text-[#c6c6c6] tracking-[1.2px] uppercase mb-[16px]">
-            Total Calories
-          </div>
-          <div className="flex items-baseline gap-[8px]">
-            <div className="font-['Inter:Black',sans-serif] font-black text-[80px] text-white tracking-[-4px]">
-              1420
-            </div>
-          </div>
-          <div className="font-['Inter:Regular',sans-serif] text-[12px] text-[#c6c6c6] tracking-[1.2px] uppercase">
-            kcal Today
-          </div>
+          <label className="block text-[10px] uppercase tracking-[0.2em] font-bold mb-4" style={{ color: 'rgba(161,161,170,1)' }}>Total Calories</label>
+          <input
+            type="number"
+            value={calories}
+            onChange={(e) => setCalories(e.target.value)}
+            placeholder="0000"
+            className="w-full text-7xl font-black tracking-tighter text-white p-0"
+            style={{ backgroundColor: 'transparent', border: 'none' }}
+          />
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] mt-2 block" style={{ color: 'rgba(161,161,170,1)' }}>kcal today</span>
         </div>
 
         {/* Food Rating */}
         <div>
-          <div className="font-['Inter:Bold',sans-serif] font-bold text-[12px] text-[#c6c6c6] tracking-[1.2px] uppercase mb-[16px]">
-            Food Rating
-          </div>
-          <div className="flex gap-[8px]">
-            {['BAD', 'OK', 'GOOD'].map((rating, i) => (
+          <label className="block text-[10px] uppercase tracking-[0.2em] font-bold mb-4" style={{ color: 'rgba(161,161,170,1)' }}>Food Rating</label>
+          <div className="flex gap-2">
+            {ratingButtons.map((btn) => (
               <button
-                key={rating}
-                className={`flex-1 py-[16px] rounded-[4px] font-['Inter:Bold',sans-serif] font-bold text-[12px] tracking-[1.2px] uppercase ${
-                  i === 1 
-                    ? 'bg-white text-black border-2 border-white' 
-                    : 'bg-transparent text-[#c6c6c6] border-2 border-[rgba(255,255,255,0.1)]'
-                }`}
+                key={btn.value}
+                onClick={() => setFoodRating(btn.value)}
+                className="flex-1 py-4 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all active:scale-95"
+                style={{
+                  backgroundColor: '#121212',
+                  border: foodRating === btn.value ? '1px solid rgba(255,255,255,0.4)' : '1px solid rgba(255,255,255,0.05)',
+                  color: foodRating === btn.value ? '#ffffff' : 'rgba(161,161,170,1)',
+                }}
               >
-                {rating}
+                {btn.label}
               </button>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Performance Trends */}
-        <div>
-          <div className="font-['Inter:Bold',sans-serif] font-bold text-[12px] text-white tracking-[1.2px] uppercase mb-[16px]">
-            Performance Trends
-          </div>
-
-          {/* Calories This Week */}
-          <div className="mb-[24px]">
-            <div className="font-['Inter:Regular',sans-serif] text-[10px] text-[#c6c6c6] tracking-[1px] uppercase mb-[16px]">
-              Calories This Week
-            </div>
-            <div className="flex items-end gap-[8px] h-[120px]">
-              {[40, 55, 45, 70, 50, 32, 95].map((height, i) => (
-                <div key={i} className="flex-1 flex flex-col justify-end">
-                  <div 
-                    className={`w-full rounded-t-[4px] ${i === 6 ? 'bg-white' : 'bg-[rgba(255,255,255,0.2)]'}`}
-                    style={{ height: `${height}%` }}
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-between mt-[8px]">
-              {['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].map((day) => (
-                <div key={day} className="font-['Inter:Bold',sans-serif] font-bold text-[8px] text-[#c6c6c6] tracking-[0.8px] uppercase">
-                  {day}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Calories This Month */}
+      {/* Performance Trends */}
+      <section className="mb-16">
+        <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] mb-8" style={{ color: 'rgba(161,161,170,1)' }}>Performance Trends</h3>
+        <div className="space-y-10">
+          {/* Weekly */}
           <div>
-            <div className="font-['Inter:Regular',sans-serif] text-[10px] text-[#c6c6c6] tracking-[1px] uppercase mb-[16px]">
-              Calories This Month
-            </div>
-            <div className="flex items-end gap-[8px] h-[120px]">
-              {[30, 40, 50, 95].map((height, i) => (
-                <div key={i} className="flex-1 flex flex-col justify-end">
-                  <div 
-                    className={`w-full rounded-t-[4px] ${i === 3 ? 'bg-white' : 'bg-[rgba(255,255,255,0.2)]'}`}
-                    style={{ height: `${height}%` }}
-                  />
-                </div>
+            <span className="text-[10px] font-bold uppercase tracking-widest mb-4 block" style={{ color: 'rgba(161,161,170,0.8)' }}>Calories: This Week</span>
+            <div className="flex items-end justify-between h-32 gap-2">
+              {weeklyBars.map((h, i) => (
+                <div
+                  key={i}
+                  className="flex-1 rounded-sm"
+                  style={{
+                    height: `${h}%`,
+                    backgroundColor: i === weeklyBars.length - 1 ? '#ffffff' : i === 3 ? '#3f3f46' : '#18181b',
+                  }}
+                />
               ))}
             </div>
-            <div className="flex justify-between mt-[8px]">
-              {['WK1', 'WK2', 'WK3', 'WK4'].map((week) => (
-                <div key={week} className="font-['Inter:Bold',sans-serif] font-bold text-[8px] text-[#c6c6c6] tracking-[0.8px] uppercase">
-                  {week}
-                </div>
+            <div className="flex justify-between mt-2 text-[8px] font-bold uppercase tracking-tighter" style={{ color: 'rgba(82,82,91,1)' }}>
+              {weekDays.map((d) => <span key={d}>{d}</span>)}
+            </div>
+          </div>
+
+          {/* Monthly */}
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-widest mb-4 block" style={{ color: 'rgba(161,161,170,0.8)' }}>Calories: This Month</span>
+            <div className="flex items-end justify-between h-16 gap-1">
+              {monthlyBars.map((h, i) => (
+                <div
+                  key={i}
+                  className="flex-1 rounded-t-sm"
+                  style={{
+                    height: `${h}%`,
+                    backgroundColor: i === 10 ? '#ffffff' : h >= 60 ? '#3f3f46' : 'rgba(24,24,27,0.5)',
+                  }}
+                />
               ))}
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Body Measurements */}
-        <div>
-          <div className="font-['Inter:Bold',sans-serif] font-bold text-[12px] text-white tracking-[1.2px] uppercase mb-[16px]">
-            Body Measurements
-          </div>
-          <div className="space-y-[8px]">
-            {[
-              { label: 'Body Weight (KG)', value: '78.5' },
-              { label: 'Body Fat (%)', value: '14.2' },
-              { label: 'Muscle Mass (KG)', value: '64.1' }
-            ].map((metric) => (
-              <div key={metric.label} className="bg-[#121212] border border-[rgba(255,255,255,0.1)] rounded-[4px] p-[21px] flex items-center justify-between">
-                <div className="font-['Inter:Bold',sans-serif] font-bold text-[12px] text-[#c6c6c6] tracking-[1.2px] uppercase">
-                  {metric.label}
-                </div>
-                <div className="font-['Inter:Black',sans-serif] font-black text-[24px] text-white">
-                  {metric.value}
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Body Measurements */}
+      <section className="mb-8">
+        <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] mb-6" style={{ color: 'rgba(161,161,170,1)' }}>Body Measurements</h3>
+        <div className="grid grid-cols-1 gap-4">
+          {[
+            { label: 'Body Weight (KG)', value: bodyWeight, onChange: setBodyWeight },
+            { label: 'Body Fat (%)', value: bodyFat, onChange: setBodyFat },
+            { label: 'Muscle Mass (KG)', value: muscleMass, onChange: setMuscleMass },
+          ].map((field) => (
+            <div key={field.label} className="flex justify-between items-center p-5 rounded-lg" style={{ backgroundColor: '#121212', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <label className="text-[10px] font-bold uppercase tracking-widest" style={{ color: 'rgba(161,161,170,0.8)' }}>{field.label}</label>
+              <input
+                type="number"
+                value={field.value}
+                onChange={(e) => field.onChange(e.target.value)}
+                step="0.1"
+                className="text-right text-lg font-black tracking-tight text-white p-0 w-24"
+                style={{ backgroundColor: 'transparent', border: 'none' }}
+              />
+            </div>
+          ))}
         </div>
-
-        {/* Update Button */}
-        <button className="bg-white w-full py-[20px] rounded-[12px] shadow-[0px_12px_32px_0px_rgba(0,0,0,0.4)] font-['Inter:Black',sans-serif] font-black text-[12px] text-black tracking-[4.8px] uppercase">
+        <button className="w-full font-black uppercase tracking-widest text-[10px] py-5 rounded-full mt-8 active:scale-[0.98] transition-all" style={{ backgroundColor: '#ffffff', color: '#000000' }}>
           Update Metrics
         </button>
-      </div>
-
-      <Header />
-      <BottomNavBar />
+      </section>
     </div>
   );
-}
+};

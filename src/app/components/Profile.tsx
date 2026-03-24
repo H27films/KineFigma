@@ -1,145 +1,76 @@
-import { useNavigate } from "react-router";
-import { User, Trophy, Target, Activity, Calendar } from "lucide-react";
+import React from 'react';
+import { User, Trophy, Target, Activity, Calendar, ChevronRight } from 'lucide-react';
+import { Page } from '../../types';
 
-export default function Profile() {
-  const navigate = useNavigate();
+interface ProfileProps {
+  onNavigate: (page: Page) => void;
+}
 
+const stats = [
+  { icon: Trophy, value: '47', label: 'Workouts' },
+  { icon: Target, value: '92%', label: 'Goal Rate' },
+  { icon: Activity, value: '284', label: 'Total Hours' },
+  { icon: Calendar, value: '23', label: 'Day Streak' },
+];
+
+const settings = [
+  'Personal Information',
+  'Goals & Preferences',
+  'Notifications',
+  'Connected Devices',
+];
+
+export const Profile: React.FC<ProfileProps> = ({ onNavigate }) => {
   return (
-    <div className="bg-black min-h-screen w-full text-white">
-      {/* Header */}
-      <div className="absolute bg-black content-stretch flex h-[64px] items-center justify-between left-0 pb-px px-[16px] top-0 w-full">
-        <div aria-hidden="true" className="absolute border-[rgba(255,255,255,0.1)] border-b border-solid inset-0 pointer-events-none" />
-        <button onClick={() => navigate('/')}>
-          <div className="h-[12px] w-[18px]">
-            <svg fill="none" viewBox="0 0 18 12">
-              <path d="M18 5H3.83L7.41 1.41L6 0L0 6L6 12L7.41 10.59L3.83 7H18V5Z" fill="white" />
-            </svg>
-          </div>
-        </button>
-        <div className="font-['Inter:Bold',sans-serif] font-bold text-[20px] tracking-[-0.5px] uppercase">
-          Profile
+    <div>
+      {/* Profile Header */}
+      <div className="flex flex-col items-center mb-12 pt-4">
+        <div
+          className="rounded-full w-[120px] h-[120px] flex items-center justify-center mb-6"
+          style={{ backgroundColor: '#121212', border: '1px solid rgba(255,255,255,0.1)' }}
+        >
+          <User size={64} style={{ color: 'rgba(255,255,255,0.4)' }} />
         </div>
-        <div className="w-[18px]" />
+        <h2 className="text-[32px] font-black tracking-[-1.6px] mb-2 text-white">ATHLETE</h2>
+        <p className="text-sm tracking-[1.4px] uppercase" style={{ color: 'rgba(255,255,255,0.6)' }}>
+          Member since 2024
+        </p>
       </div>
 
-      {/* Content */}
-      <div className="pt-[96px] px-[24px] pb-[120px]">
-        {/* Profile Header */}
-        <div className="flex flex-col items-center mb-[48px]">
-          <div className="bg-[#121212] border border-[rgba(255,255,255,0.1)] rounded-full w-[120px] h-[120px] flex items-center justify-center mb-[24px]">
-            <User size={64} className="text-[rgba(255,255,255,0.4)]" />
-          </div>
-          <h2 className="font-['Inter:Black',sans-serif] font-black text-[32px] tracking-[-1.6px] mb-[8px]">
-            ATHLETE
-          </h2>
-          <p className="font-['Inter:Regular',sans-serif] text-[14px] text-[rgba(255,255,255,0.6)] tracking-[1.4px] uppercase">
-            Member since 2024
-          </p>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 gap-[16px] mb-[32px]">
-          <div className="bg-[#121212] border border-[rgba(255,255,255,0.1)] rounded-[8px] p-[24px]">
-            <Trophy className="text-white mb-[16px]" size={24} />
-            <div className="font-['Inter:Black',sans-serif] font-black text-[32px] leading-[32px] mb-[8px]">
-              47
+      {/* Stats Grid */}
+      <div className="grid grid-cols-2 gap-4 mb-8">
+        {stats.map((stat) => {
+          const Icon = stat.icon;
+          return (
+            <div
+              key={stat.label}
+              className="rounded-lg p-6"
+              style={{ backgroundColor: '#121212', border: '1px solid rgba(255,255,255,0.1)' }}
+            >
+              <Icon size={24} className="text-white mb-4" />
+              <div className="text-[32px] font-black leading-none mb-2 text-white">{stat.value}</div>
+              <div className="text-[10px] font-bold uppercase tracking-[1px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                {stat.label}
+              </div>
             </div>
-            <div className="font-['Inter:Bold',sans-serif] font-bold text-[10px] text-[rgba(255,255,255,0.4)] tracking-[1px] uppercase">
-              Workouts
-            </div>
-          </div>
-
-          <div className="bg-[#121212] border border-[rgba(255,255,255,0.1)] rounded-[8px] p-[24px]">
-            <Target className="text-white mb-[16px]" size={24} />
-            <div className="font-['Inter:Black',sans-serif] font-black text-[32px] leading-[32px] mb-[8px]">
-              92%
-            </div>
-            <div className="font-['Inter:Bold',sans-serif] font-bold text-[10px] text-[rgba(255,255,255,0.4)] tracking-[1px] uppercase">
-              Goal Rate
-            </div>
-          </div>
-
-          <div className="bg-[#121212] border border-[rgba(255,255,255,0.1)] rounded-[8px] p-[24px]">
-            <Activity className="text-white mb-[16px]" size={24} />
-            <div className="font-['Inter:Black',sans-serif] font-black text-[32px] leading-[32px] mb-[8px]">
-              284
-            </div>
-            <div className="font-['Inter:Bold',sans-serif] font-bold text-[10px] text-[rgba(255,255,255,0.4)] tracking-[1px] uppercase">
-              Total Hours
-            </div>
-          </div>
-
-          <div className="bg-[#121212] border border-[rgba(255,255,255,0.1)] rounded-[8px] p-[24px]">
-            <Calendar className="text-white mb-[16px]" size={24} />
-            <div className="font-['Inter:Black',sans-serif] font-black text-[32px] leading-[32px] mb-[8px]">
-              23
-            </div>
-            <div className="font-['Inter:Bold',sans-serif] font-bold text-[10px] text-[rgba(255,255,255,0.4)] tracking-[1px] uppercase">
-              Day Streak
-            </div>
-          </div>
-        </div>
-
-        {/* Settings */}
-        <div className="space-y-[16px]">
-          <h3 className="font-['Inter:Black',sans-serif] font-black text-[18px] tracking-[-0.9px] uppercase mb-[16px]">
-            Settings
-          </h3>
-          
-          <div className="bg-[#121212] border border-[rgba(255,255,255,0.05)] rounded-[4px] p-[21px]">
-            <div className="font-['Inter:Bold',sans-serif] font-bold text-[14px]">
-              Personal Information
-            </div>
-          </div>
-
-          <div className="bg-[#121212] border border-[rgba(255,255,255,0.05)] rounded-[4px] p-[21px]">
-            <div className="font-['Inter:Bold',sans-serif] font-bold text-[14px]">
-              Goals & Preferences
-            </div>
-          </div>
-
-          <div className="bg-[#121212] border border-[rgba(255,255,255,0.05)] rounded-[4px] p-[21px]">
-            <div className="font-['Inter:Bold',sans-serif] font-bold text-[14px]">
-              Notifications
-            </div>
-          </div>
-
-          <div className="bg-[#121212] border border-[rgba(255,255,255,0.05)] rounded-[4px] p-[21px]">
-            <div className="font-['Inter:Bold',sans-serif] font-bold text-[14px]">
-              Connected Devices
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
 
-      {/* Bottom Nav */}
-      <div className="absolute backdrop-blur-[12px] bg-[rgba(0,0,0,0.6)] border border-[rgba(255,255,255,0.2)] border-solid bottom-[24px] h-[66px] left-[19.5px] rounded-[12px] shadow-[0px_12px_32px_0px_black] w-[351px]">
-        <div onClick={() => navigate('/')} className="absolute cursor-pointer flex flex-col items-start left-[38.61px] top-1/2 -translate-y-1/2 p-[12px]">
-          <div className="font-['Material_Symbols_Outlined:Thin',sans-serif] h-[24px] text-[24px] text-[rgba(255,255,255,0.6)]">
-            <p>camping</p>
+      {/* Settings */}
+      <div className="space-y-4">
+        <h3 className="text-[18px] font-black tracking-[-0.9px] uppercase mb-4 text-white">Settings</h3>
+        {settings.map((item) => (
+          <div
+            key={item}
+            className="flex items-center justify-between p-5 rounded cursor-pointer active:scale-[0.98] transition-all"
+            style={{ backgroundColor: '#121212', border: '1px solid rgba(255,255,255,0.05)' }}
+          >
+            <div className="font-bold text-sm text-white">{item}</div>
+            <ChevronRight size={16} style={{ color: 'rgba(255,255,255,0.4)' }} />
           </div>
-        </div>
-        
-        <div onClick={() => navigate('/weights')} className="absolute cursor-pointer flex flex-col items-start left-[113.86px] top-1/2 -translate-y-1/2 p-[12px]">
-          <div className="font-['Material_Symbols_Outlined:Thin',sans-serif] h-[24px] text-[24px] text-[rgba(255,255,255,0.6)]">
-            <p>fitness_center</p>
-          </div>
-        </div>
-
-        <div onClick={() => navigate('/cardio')} className="absolute flex items-center justify-center left-[186.71px] top-1/2 -translate-y-1/2 size-[46.2px]">
-          <div className="bg-white rounded-[12px] size-[42px] flex items-center justify-center">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M13 8H8V13H6V8H1V6H6V1H8V6H13V8Z" fill="black"/>
-            </svg>
-          </div>
-        </div>
-
-        <div className="absolute flex flex-col items-start left-[264.36px] top-1/2 -translate-y-1/2 p-[12px]">
-          <div className="font-['Material_Symbols_Outlined:Thin',sans-serif] h-[24px] text-[24px] text-white">
-            <p>person</p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
-}
+};
